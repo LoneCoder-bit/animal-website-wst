@@ -87,8 +87,8 @@ playBackgroundVideo();
    ========================================================= */
 
 const animals = [
-
-    {
+  /* ========================================================== KARA TERRESTERIAL ============================*/
+    { 
         name: "Lion",
 
         type: "Terrestrial",
@@ -127,7 +127,42 @@ const animals = [
         funFact:
             "Every tiger has a unique stripe pattern, similar to a human fingerprint."
     }
+    /* ========================================================== KARA AERIAL============================*/
+/*SAME MLNG STRUCTURE IT SA TERRESTERIAL NGARA NABAGO NYU MLNG VALUE, TAS PATHING MALNG KUNG ALIN NAME IT IMG MANA HAY DATO MAN IBUTANG SA
+image: "images/tiger.jpg",< DAYA NGA PART TAS BUTANG NYU SA IMG NGA FOLDER DO PICTURE AGOD BUKON MAGULO
+*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ========================================================== KARA AQUATIC============================*/
+
+
+
+
+
+
+
+   
 ];
 
 
