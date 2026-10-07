@@ -1,0 +1,1773 @@
+/* =========================================================
+   BASIC RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #071a12;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND VIDEO
+   ========================================================= */
+
+#background-video {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: -3;
+
+    /* Makes video slightly softer */
+    filter: saturate(1.05) contrast(1.02);
+
+}
+
+
+/* =========================================================
+   BACKGROUND OVERLAY
+   ========================================================= */
+
+.background-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    /*
+        Much lighter than before.
+
+        The video will now remain visible.
+    */
+
+    background:
+        linear-gradient(180deg,
+            rgba(3, 25, 17, 0.48) 0%,
+            rgba(3, 25, 17, 0.28) 45%,
+            rgba(3, 25, 17, 0.55) 100%);
+
+    z-index: -2;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   NAVIGATION BAR
+   ========================================================= */
+
+.navbar {
+
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 92%;
+    max-width: 1250px;
+
+    padding: 12px 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    /*
+        Modern glass effect
+    */
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+    z-index: 1000;
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+
+}
+
+
+/* Navbar hover */
+
+.navbar:hover {
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    border-color:
+        rgba(255, 255, 255, 0.28);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: #e8fff0;
+
+    white-space: nowrap;
+
+    letter-spacing: -0.3px;
+
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+/* Links + category button */
+
+.nav-links>a,
+.category-button {
+
+    position: relative;
+
+    color: rgba(255, 255, 255, 0.88);
+
+    text-decoration: none;
+
+    padding: 10px 14px;
+
+    border-radius: 11px;
+
+    background: transparent;
+
+    border: none;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+/*
+    Small glowing line
+    under navigation items.
+*/
+
+.nav-links>a::after,
+.category-button::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 5px;
+
+    width: 0;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: #8be0a9;
+
+    transform: translateX(-50%);
+
+    transition:
+        width 0.25s ease;
+
+}
+
+
+/* Hover */
+
+.nav-links>a:hover,
+.category-button:hover {
+
+    color: #123d28;
+
+    background:
+        rgba(255, 255, 255, 0.92);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.nav-links>a:hover::after,
+.category-button:hover::after {
+
+    width: 22px;
+
+}
+
+
+/* =========================================================
+   CATEGORY DROPDOWN
+   ========================================================= */
+
+.category {
+
+    position: relative;
+
+}
+
+
+.category-menu {
+
+    position: absolute;
+
+    top: calc(100% + 10px);
+
+    left: 0;
+
+    min-width: 200px;
+
+    padding: 7px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.55);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.30);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(8px) scale(0.97);
+
+    transform-origin: top center;
+
+    transition:
+        opacity 0.22s ease,
+        visibility 0.22s ease,
+        transform 0.22s ease;
+
+}
+
+
+.category:hover .category-menu {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0) scale(1);
+
+}
+
+
+.category-menu a {
+
+    display: block;
+
+    color: #173b28;
+
+    padding: 11px 12px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.category-menu a:hover {
+
+    background:
+        #dff5e7;
+
+    color:
+        #0b6338;
+
+    transform:
+        translateX(3px);
+
+}
+
+
+/* =========================================================
+   SEARCH BAR
+   ========================================================= */
+
+.search-container {
+
+    position: relative;
+
+}
+
+
+#searchInput {
+
+    width: 180px;
+
+    padding:
+        10px 14px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.20);
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 14px;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        width 0.35s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+#searchInput::placeholder {
+
+    color:
+        rgba(255, 255, 255, 0.68);
+
+}
+
+
+#searchInput:focus {
+
+    width: 220px;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    color:
+        #123d28;
+
+    border-color:
+        rgba(255, 255, 255, 0.7);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.18);
+
+}
+
+
+#searchInput:focus::placeholder {
+
+    color:
+        rgba(18, 61, 40, 0.5);
+
+}
+
+
+/* =========================================================
+   SEARCH SUGGESTIONS
+   ========================================================= */
+
+.search-suggestions {
+
+    position: absolute;
+
+    top: calc(100% + 8px);
+
+    left: 0;
+
+    width: 220px;
+
+    background:
+        rgba(255, 255, 255, 0.95);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    display: none;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.25);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.6);
+
+}
+
+
+.suggestion {
+
+    padding: 12px 14px;
+
+    color: #123d28;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        padding-left 0.2s ease;
+
+}
+
+
+.suggestion:hover {
+
+    background:
+        #e2f5e8;
+
+    padding-left:
+        18px;
+
+}
+
+
+/* =========================================================
+   HERO / ABOUT SECTION
+   ========================================================= */
+
+.hero {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding:
+        120px 20px 80px;
+
+}
+
+
+.hero-content {
+
+    max-width: 800px;
+
+    animation:
+        heroEnter 1s ease both;
+
+}
+
+
+@keyframes heroEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.small-title {
+
+    letter-spacing: 5px;
+
+    color:
+        #9be5b6;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(45px, 8vw, 90px);
+
+    line-height: 0.98;
+
+    letter-spacing:
+        -2px;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 8px 35px rgba(0, 0, 0, 0.25);
+
+}
+
+
+.hero h1 span {
+
+    color:
+        #8be0a9;
+
+}
+
+
+.hero-description {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    color:
+        rgba(235, 247, 240, 0.86);
+
+    line-height: 1.8;
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   EXPLORE BUTTON
+   ========================================================= */
+
+.explore-button {
+
+    display: inline-block;
+
+    margin-top: 30px;
+
+    padding:
+        14px 25px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    color:
+        #123d28;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+
+}
+
+
+.explore-button:hover {
+
+    transform:
+        translateY(-5px);
+
+    background:
+        white;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* =========================================================
+   ANIMAL SECTION
+   ========================================================= */
+
+.animals-section {
+
+    /*
+        IMPORTANT:
+
+        Much more transparent than your
+        previous rgba(3,25,16,0.75).
+
+        The background video can now
+        actually be seen.
+    */
+
+    padding:
+        110px 6%;
+
+    background:
+        rgba(3, 25, 16, 0.38);
+
+    backdrop-filter:
+        blur(2px);
+
+    /*
+        Subtle separation from hero.
+    */
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 50px;
+
+}
+
+
+.section-title p {
+
+    color:
+        #8be0a9;
+
+    letter-spacing: 4px;
+
+    font-size: 12px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.section-title h2 {
+
+    font-size:
+        clamp(34px, 5vw, 45px);
+
+    margin:
+        10px 0;
+
+    text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.25);
+
+}
+
+
+.section-title span {
+
+    color:
+        rgba(220, 235, 226, 0.75);
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   ANIMAL GRID
+   ========================================================= */
+
+.animal-grid {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit,
+            minmax(250px, 1fr));
+
+    gap: 24px;
+
+}
+
+
+/* =========================================================
+   ANIMAL CARD
+   ========================================================= */
+
+.animal-card {
+
+    position: relative;
+
+    height: 360px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    background:
+        rgba(20, 55, 39, 0.55);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.45s cubic-bezier(.2, .8, .2, 1),
+        border-color 0.35s ease,
+        box-shadow 0.45s ease;
+
+}
+
+
+/* Hover */
+
+.animal-card:hover {
+
+    transform:
+        translateY(-12px) scale(1.015);
+
+    border-color:
+        rgba(139, 224, 169, 0.65);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.38);
+
+}
+
+
+/* =========================================================
+   CARD IMAGE
+   ========================================================= */
+
+.animal-card img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.7s cubic-bezier(.2, .8, .2, 1),
+        filter 0.5s ease;
+
+}
+
+
+/* Image hover */
+
+.animal-card:hover img {
+
+    transform:
+        scale(1.09);
+
+    filter:
+        saturate(1.1) brightness(1.05);
+
+}
+
+
+/* =========================================================
+   CARD IMAGE OVERLAY
+   ========================================================= */
+
+.animal-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.02) 25%,
+            rgba(0, 0, 0, 0.20) 45%,
+            rgba(0, 0, 0, 0.88) 100%);
+
+    pointer-events: none;
+
+}
+
+
+/*
+    Subtle green glow on hover.
+*/
+
+.animal-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+        radial-gradient(circle at 50% 100%,
+            rgba(139, 224, 169, 0.12),
+            transparent 55%);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease;
+
+    pointer-events: none;
+
+}
+
+
+.animal-card:hover::after {
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   CARD INFORMATION
+   ========================================================= */
+
+.card-information {
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    padding:
+        25px;
+
+    z-index: 3;
+
+    background:
+        linear-gradient(transparent,
+            rgba(0, 0, 0, 0.82));
+
+}
+
+
+.card-information h3 {
+
+    font-size: 27px;
+
+    margin-bottom: 8px;
+
+    transform:
+        translateY(5px);
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+.animal-card:hover .card-information h3 {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.card-type {
+
+    color:
+        #9be5b6;
+
+    font-size: 13px;
+
+    margin-bottom: 10px;
+
+    font-weight: 600;
+
+}
+
+
+.card-summary {
+
+    color:
+        rgba(232, 242, 236, 0.86);
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    opacity: 0;
+
+    transform:
+        translateY(12px);
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+
+}
+
+
+.animal-card:hover .card-summary {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   ANIMAL DETAIL POPUP
+   ========================================================= */
+
+.animal-detail {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    /*
+        Slightly transparent popup background
+        so the video remains subtly visible.
+    */
+
+    background:
+        rgba(0, 20, 10, 0.62);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    animation:
+        overlayIn 0.3s ease;
+
+}
+
+
+.animal-detail.hidden {
+
+    display: none;
+
+}
+
+
+@keyframes overlayIn {
+
+    from {
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   POPUP CONTENT
+   ========================================================= */
+
+.detail-content {
+
+    position: relative;
+
+    width:
+        min(1000px, 95%);
+
+    max-height:
+        90vh;
+
+    overflow-y:
+        auto;
+
+    background:
+        rgba(255, 255, 255, 0.11);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.20);
+
+    border-radius:
+        25px;
+
+    padding:
+        30px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        30px;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.50),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+    animation:
+        popupAnimation 0.4s cubic-bezier(.2, .8, .2, 1);
+
+}
+
+
+/* Popup scrollbar */
+
+.detail-content::-webkit-scrollbar {
+
+    width: 7px;
+
+}
+
+
+.detail-content::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+
+}
+
+
+.detail-content::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(255, 255, 255, 0.25);
+
+    border-radius:
+        20px;
+
+}
+
+
+/* =========================================================
+   POPUP ANIMATION
+   ========================================================= */
+
+@keyframes popupAnimation {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.94) translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.back-button {
+
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.back-button:hover {
+
+    background:
+        white;
+
+    color:
+        #14532d;
+
+    transform:
+        rotate(90deg) scale(1.08);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* =========================================================
+   DETAIL IMAGE
+   ========================================================= */
+
+.detail-image-container {
+
+    border-radius:
+        20px;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.40);
+
+}
+
+
+.detail-image-container img {
+
+    width: 100%;
+
+    height: 450px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.6s ease;
+
+}
+
+
+.detail-image-container:hover img {
+
+    transform:
+        scale(1.035);
+
+}
+
+
+/* =========================================================
+   DETAIL INFORMATION
+   ========================================================= */
+
+.detail-information {
+
+    color: white;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+.detail-type {
+
+    color:
+        #86efac;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    font-size: 13px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.detail-information h2 {
+
+    font-size:
+        clamp(38px, 5vw, 50px);
+
+    margin:
+        10px 0 20px;
+
+}
+
+
+.detail-information>p {
+
+    color:
+        #d1d5db;
+
+    line-height:
+        1.7;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+/* =========================================================
+   DETAIL FACTS
+   ========================================================= */
+
+.detail-facts {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        10px;
+
+    margin-top:
+        15px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.fact {
+
+    padding:
+        15px;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.fact:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.11);
+
+    border-color:
+        rgba(139, 224, 169, 0.25);
+
+}
+
+
+.fact span {
+
+    display:
+        block;
+
+    color:
+        #a7f3d0;
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+
+}
+
+
+.fact strong {
+
+    color:
+        white;
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   FUN FACT
+   ========================================================= */
+
+.fun-fact {
+
+    margin-top:
+        10px;
+
+    padding:
+        20px;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(134, 239, 172, 0.08);
+
+    border:
+        1px solid rgba(134, 239, 172, 0.18);
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+
+.fun-fact:hover {
+
+    background:
+        rgba(134, 239, 172, 0.12);
+
+    border-color:
+        rgba(134, 239, 172, 0.30);
+
+}
+
+
+.fun-fact strong {
+
+    color:
+        #86efac;
+
+}
+
+
+.fun-fact p {
+
+    color:
+        #d1d5db;
+
+    line-height:
+        1.6;
+
+    margin-top:
+        8px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .navbar {
+
+        width:
+            94%;
+
+    }
+
+    .nav-links {
+
+        gap:
+            2px;
+
+    }
+
+    #searchInput {
+
+        width:
+            150px;
+
+    }
+
+    #searchInput:focus {
+
+        width:
+            190px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .navbar {
+
+        position:
+            absolute;
+
+    }
+
+    .nav-links {
+
+        flex-wrap:
+            wrap;
+
+        justify-content:
+            flex-end;
+
+    }
+
+    .detail-content {
+
+        grid-template-columns:
+            1fr;
+
+        width:
+            min(700px, 95%);
+
+        padding:
+            25px;
+
+    }
+
+    .detail-image-container img {
+
+        height:
+            300px;
+
+    }
+
+    .detail-information h2 {
+
+        font-size:
+            40px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .navbar {
+
+        top:
+            10px;
+
+        padding:
+            10px 12px;
+
+        border-radius:
+            15px;
+
+        flex-direction:
+            column;
+
+        gap:
+            10px;
+
+    }
+
+    .nav-links {
+
+        width:
+            100%;
+
+        justify-content:
+            center;
+
+    }
+
+    .nav-links>a,
+    .category-button {
+
+        padding:
+            8px 9px;
+
+        font-size:
+            12px;
+
+    }
+
+    #searchInput {
+
+        width:
+            150px;
+
+    }
+
+    #searchInput:focus {
+
+        width:
+            180px;
+
+    }
+
+    .hero {
+
+        padding:
+            150px 20px 80px;
+
+    }
+
+    .hero h1 {
+
+        letter-spacing:
+            -1px;
+
+    }
+
+    .animals-section {
+
+        padding:
+            80px 5%;
+
+    }
+
+    .animal-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .animal-card {
+
+        height:
+            340px;
+
+    }
+
+    .animal-detail {
+
+        padding:
+            15px;
+
+    }
+
+    .detail-content {
+
+        width:
+            100%;
+
+        max-height:
+            92vh;
+
+        padding:
+            20px;
+
+        border-radius:
+            20px;
+
+    }
+
+    .detail-image-container img {
+
+        height:
+            230px;
+
+    }
+
+    .detail-information h2 {
+
+        font-size:
+            32px;
+
+    }
+
+    .detail-facts {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .back-button {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        font-size:
+            18px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCE ANIMATIONS FOR ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior:
+            auto !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+    }
+
+}

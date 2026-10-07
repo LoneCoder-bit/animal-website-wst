@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wildpedia - Animal Dictionary</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND VIDEO
+         ===================================================== -->
+
+    <video autoplay muted playsinline id="background-video">
+    </video>
+
+
+    <!-- Dark overlay -->
+    <div class="background-overlay"></div>
+
+
+    <!-- =====================================================
+         NAVIGATION BAR
+         ===================================================== -->
+
+    <nav class="navbar">
+
+        <!-- Logo -->
+
+        <div class="logo">
+            🌿 Wildpedia
+        </div>
+
+
+        <!-- Navigation links -->
+
+        <div class="nav-links">
+
+            <!-- About -->
+
+            <a href="#about">
+                About
+            </a>
+
+
+            <!-- All Animals -->
+
+            <a href="#animals">
+                All Animals
+            </a>
+
+
+            <!-- Animal Type -->
+
+            <div class="category">
+
+                <button class="category-button">
+                    Animal Type ▾
+                </button>
+
+
+                <div class="category-menu">
+
+                    <a href="#" data-category="Terrestrial">
+                        🌳 Terrestrial
+                    </a>
+
+
+                    <a href="#" data-category="Aquatic">
+                        🌊 Aquatic
+                    </a>
+
+
+                    <a href="#" data-category="Aerial">
+                        🦅 Aerial
+                    </a>
+
+
+                    <a href="#" data-category="All">
+                        🐾 All Animals
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search -->
+
+            <div class="search-container">
+
+                <input type="text" id="searchInput" placeholder="Search animal..." autocomplete="off">
+
+
+                <div id="searchSuggestions" class="search-suggestions">
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             ABOUT / DASHBOARD
+             ================================================= -->
+
+        <section id="about" class="hero">
+
+            <div class="hero-content">
+
+                <p class="small-title">
+                    ANIMAL DICTIONARY
+                </p>
+
+
+                <h1>
+                    Discover the
+                    <span>Wild World</span>
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Welcome to Wildpedia, a modern animal
+                    dictionary created to help people discover,
+                    understand and appreciate the amazing
+                    animals that live around our world.
+
+                </p>
+
+
+                <a href="#animals" class="explore-button">
+
+                    Explore Animals →
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ANIMAL CARDS
+             ================================================= -->
+
+        <section id="animals" class="animals-section">
+
+
+            <div class="section-title">
+
+                <p>
+                    DISCOVER
+                </p>
+
+
+                <h2>
+                    Animal Dictionary
+                </h2>
+
+
+                <span id="animalCount">
+                    Showing animals
+                </span>
+
+            </div>
+
+
+            <!-- JavaScript creates cards here -->
+
+            <div id="animalGrid" class="animal-grid">
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ANIMAL DETAIL POPUP
+             ================================================= -->
+
+        <!--
+            IMPORTANT:
+
+            This is the ONLY animal-detail section.
+
+            "hidden" means it is invisible when
+            the website first loads.
+
+            JavaScript removes "hidden" when
+            the user clicks an animal.
+        -->
+
+        <section id="animalDetail" class="animal-detail hidden">
+
+
+            <!-- =================================================
+                 CLOSE BUTTON
+                 ================================================= -->
+
+            <button id="backButton" class="back-button">
+
+                ✕
+
+            </button>
+
+
+
+            <!-- =================================================
+                 POPUP CONTENT
+                 ================================================= -->
+
+            <div class="detail-content">
+
+
+                <!-- Animal image -->
+
+                <div class="detail-image-container">
+
+                    <img id="detailImage" src="" alt="Animal">
+
+                </div>
+
+
+
+                <!-- Animal information -->
+
+                <div class="detail-information">
+
+
+                    <!-- Animal type -->
+
+                    <p id="detailType" class="detail-type">
+                    </p>
+
+
+                    <!-- Animal name -->
+
+                    <h2 id="detailName">
+                    </h2>
+
+
+                    <!-- Description -->
+
+                    <p id="detailDescription">
+                    </p>
+
+
+
+                    <!-- =================================================
+                         ANIMAL FACTS
+                         ================================================= -->
+
+                    <div class="detail-facts">
+
+
+                        <!-- Favorite food -->
+
+                        <div class="fact">
+
+                            <span>
+                                Favorite Food
+                            </span>
+
+                            <strong id="detailFood">
+                            </strong>
+
+                        </div>
+
+
+                        <!-- Habitat -->
+
+                        <div class="fact">
+
+                            <span>
+                                Habitat
+                            </span>
+
+                            <strong id="detailHabitat">
+                            </strong>
+
+                        </div>
+
+
+                        <!-- Location -->
+
+                        <div class="fact">
+
+                            <span>
+                                Found In
+                            </span>
+
+                            <strong id="detailLocation">
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         FUN FACT
+                         ================================================= -->
+
+                    <div class="fun-fact">
+
+                        <strong>
+                            🧠 Fun Fact
+                        </strong>
+
+
+                        <p id="detailFunFact">
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
